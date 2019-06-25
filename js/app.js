@@ -1,5 +1,6 @@
 const BASE_URL='http://localhost:3000/';
 
+
 function loadList() {
     getList()
         .then(createList)
@@ -24,6 +25,7 @@ function createListItem (item) {
     const liElement = document.createElement('li')
     liElement.innerHTML= `
     <p>${item.text}</p>
+    <button>Actualizar</button>
     <button>Eliminar</button>
     `
     return liElement
@@ -48,10 +50,26 @@ function saveTask (task) {
       .then(response => response.json())
   }
   
+  function updateTask (task) {
+    return fetch(`${BASE_URL}items`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(task)
+    })
+      .then(response => response.json())
+  }
+
   function onSubmitFormAddTask (event) {
     event.preventDefault()
     createTask()
   }
+
+function onUpdateButtonEvent (){
+    alert("testing");
+
+}
   
   function suscribeToFormAddTaskSubmit () {
     const form = document.getElementById('add-task')
